@@ -4,9 +4,6 @@
 #include <unordered_map>
 #include <vector>
 
-#include <unordered_map>
-#include <vector>
-
 constexpr int kVerticesCount = 14;
 
 class Graph {
