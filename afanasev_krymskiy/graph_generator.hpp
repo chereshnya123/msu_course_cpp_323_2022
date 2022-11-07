@@ -2,7 +2,6 @@
 #include "graph.hpp"
 
 namespace uni_course_cpp {
-
 class GraphGenerator {
  public:
   struct Params {
@@ -10,7 +9,7 @@ class GraphGenerator {
     Params(Graph::Depth depth, int new_vertices_count)
         : depth_(depth), new_vertices_count_(new_vertices_count) {}
 
-    Graph::Depth depth() const { return depth_; }
+    Graph::Depth get_depth() const { return depth_; }
     int new_vertices_count() const { return new_vertices_count_; }
 
    private:
@@ -24,7 +23,7 @@ class GraphGenerator {
 
  private:
   void generate_grey_edges(Graph& graph) const;
+
   Params params_ = Params(0, 0);
 };
-
 }  // namespace uni_course_cpp
