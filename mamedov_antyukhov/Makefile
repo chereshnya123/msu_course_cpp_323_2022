@@ -25,7 +25,7 @@ erase: delete
 	rm -f $(GRAPH)
 
 ready:
-	rm -rf $(PROGS.O)
+	rm -rf $(PROGS.O) $(RES)
 
 clang-format:
 	clang-format -i -style=Chromium $(PROGS.CPP) $(PROGS.HPP)
