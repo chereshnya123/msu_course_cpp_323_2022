@@ -6,7 +6,7 @@ namespace uni_course_cpp {
 class Logger {
  public:
   static Logger& get_logger();
-  void log(const std::string& string) const;
+  void log(const std::string& string);
 
   Logger(const Logger& other) = delete;
   void operator=(const Logger& other) = delete;
@@ -15,9 +15,9 @@ class Logger {
   void operator=(Logger&& other) = delete;
 
  private:
-  ~Logger() = default;
-  Logger() = default;
+  ~Logger() { log_file_.close(); };
+  Logger() : log_file_(config::kLogFilename) {}
 
-  static std::ofstream log_file_;
+  std::ofstream log_file_;
 };
 }  // namespace uni_course_cpp

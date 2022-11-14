@@ -22,13 +22,12 @@ std::string get_current_date_time() {
 namespace uni_course_cpp {
 
 Logger& Logger::get_logger() {
-  static Logger instance;
-  instance.log_file_.open(config::kLogFilename);
-  return instance;
+  Logger* instance = new Logger();
+  return *instance;
 }
 
-void Logger::log(const std::string& string) const {
-  std::string current_date_time = get_current_date_time();
+void Logger::log(const std::string& string) {
+  const std::string current_date_time = get_current_date_time();
   log_file_ << current_date_time << string;
   std::cout << current_date_time << string;
 }
