@@ -7,6 +7,7 @@
 #include <queue>
 #include <random>
 #include <thread>
+#include <functional>
 
 namespace uni_course_cpp {
 
@@ -209,8 +210,58 @@ void GraphGenerator::generate_grey_edges(Graph& graph,
   should_terminate = true;
 
   for (auto& thread : threads) {
-    thread.join();
+    if (thread.joinable()) {
+      thread.join();
+    }
   }
 }
+
+  GraphGenerationController::GraphGenerationController(
+    int threads_count,
+    int graphs_count,
+    GraphGenerator::Params&& graph_generator_params)
+    : threads_count_(threads_count),
+      graphs_count_(graphs_count),
+      graph_generator_(GraphGenerator(std::move(graph_generator_params))) {}
+
+  void GraphGenerationController::Worker::start() {
+  assert(state_ == State::Idle);
+  thread_ = std::thread([this]() {
+    while (true) {
+      if (state_ == State::ShouldTerminate) {
+        return;
+      }
+      const auto job_optional = get_job_callback_();
+      if (job_optional.has_value()) {
+        state_ = State::Working;
+        const auto& job = job_optional.value();
+        job();
+      }
+    }
+  });
+}
+
+void GraphGenerationController::Worker::stop() {
+  assert(state_ == State::Working);
+  state_ = State::ShouldTerminate;
+  thread_.join();
+}
+  
+  void GraphGenerationController::generate(
+    const GenStartedCallback& gen_started_callback,
+    const GenFinishedCallback& gen_finished_callback) {
+  for (int i = 0; i < graphs_count_; i++) {
+    jobs_.emplace_back([&gen_started_callback, &gen_finished_callback, this, &i]() {
+      gen_started_callback(i);
+      auto graph = graph_generator_.generate();
+      gen_finished_callback(i, std::move(graph));
+    });
+  }
+
+  // Запускаем воркеров
+  for (auto& worker : workers_) {
+    worker.start();
+  }
+  }
 
 }  // namespace uni_course_cpp
