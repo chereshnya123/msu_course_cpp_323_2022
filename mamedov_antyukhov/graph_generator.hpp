@@ -6,6 +6,8 @@
 #include <list>
 #include <optional>
 #include <thread>
+#include "interfaces/i_worker.hpp"
+
 namespace uni_course_cpp {
 
 class GraphGenerator {
@@ -55,14 +57,14 @@ class GraphGenerationController {
  private:
   using JobCallback = std::function<void()>;
 
-  class Worker {
+  class Worker : public IWorker {
    public:
     using GetJobCallback = std::function<std::optional<JobCallback>()>;
 
     explicit Worker(const GetJobCallback& get_job_callback);
 
-    void start();
-    void stop();
+    void start() override;
+    void stop() override;
 
    private:
     enum class State { Idle, Working, ShouldTerminate };

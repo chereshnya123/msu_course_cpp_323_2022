@@ -4,28 +4,29 @@
 #include <string>
 #include <unordered_map>
 #include <utility>
-#include "graph.hpp"
+#include "interfaces/i_graph.hpp"
+#include "graph.cpp"
 
 namespace {
 static constexpr int kColorsAmount = 4;
-constexpr std::array<uni_course_cpp::Graph::Edge::Color, kColorsAmount>
-    kColors = {uni_course_cpp::Graph::Edge::Color::Grey,
-               uni_course_cpp::Graph::Edge::Color::Green,
-               uni_course_cpp::Graph::Edge::Color::Yellow,
-               uni_course_cpp::Graph::Edge::Color::Red};
+constexpr std::array<uni_course_cpp::EdgeColor, kColorsAmount>
+    kColors = {uni_course_cpp::EdgeColor::Grey,
+               uni_course_cpp::EdgeColor::Green,
+               uni_course_cpp::EdgeColor::Yellow,
+               uni_course_cpp::EdgeColor::Red};
 }  // namespace
 
 namespace uni_course_cpp {
 namespace printing {
-std::string print_edge_color(Graph::Edge::Color color) {
+std::string print_edge_color(EdgeColor color) {
   switch (color) {
-    case Graph::Edge::Color::Grey:
+    case EdgeColor::Grey:
       return "grey";
-    case Graph::Edge::Color::Green:
+    case EdgeColor::Green:
       return "green";
-    case Graph::Edge::Color::Red:
+    case EdgeColor::Red:
       return "red";
-    case Graph::Edge::Color::Yellow:
+    case EdgeColor::Yellow:
       return "yellow";
     default:
       throw std::runtime_error("Can't recognize edge color");
@@ -33,7 +34,7 @@ std::string print_edge_color(Graph::Edge::Color color) {
   }
 }
 
-std::string print_graph(const Graph& graph) {
+std::string print_graph(const IGraph& graph) {
   std::stringstream data_graph;
   const auto& vertices_depth = graph.get_depth_levels();
   const auto& edges = graph.get_edges();
