@@ -2,13 +2,14 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
-#include <unordered_map>
 #include <memory>
+#include <unordered_map>
 
 namespace uni_course_cpp {
 Graph::VertexId Graph::add_vertex() {
   const VertexId new_vertex_id = get_new_vertex_id();
-  vertices_.insert({new_vertex_id,  std::make_unique<IVertex>(Vertex(new_vertex_id))});
+  vertices_.insert(
+      {new_vertex_id, std::make_unique<IVertex>(Vertex(new_vertex_id))});
   set_vertex_depth(new_vertex_id, 1);
   connections_[new_vertex_id] = {};
   return new_vertex_id;
@@ -41,8 +42,10 @@ Graph::EdgeId Graph::add_edge(VertexId first_vertex_id,
 
   colored_edge_ids_[color].emplace_back(new_edge_id);
 
-  edges_.insert({new_edge_id,
-                 std::make_unique<Edge>(Edge(new_edge_id, first_vertex_id, second_vertex_id, color))});
+  edges_.insert(
+
+      {new_edge_id, std::make_unique<Edge>(Edge(new_edge_id, first_vertex_id,
+                                                second_vertex_id, color))});
 
   return new_edge_id;
 }
@@ -65,15 +68,15 @@ void Graph::set_vertex_depth(VertexId vertex_id, GraphDepth new_vertex_depth) {
   }
 }
 
-void Graph::update_vertex_depth(VertexId vertex_id, GraphDepth new_vertex_depth) {
+void Graph::update_vertex_depth(VertexId vertex_id,
+                                GraphDepth new_vertex_depth) {
   depth_levels_[0].erase(
       std::find(depth_levels_[0].begin(), depth_levels_[0].end(), vertex_id));
   set_vertex_depth(vertex_id, new_vertex_depth);
 }
 
-const EdgeColor Graph::get_edge_color(
-    VertexId first_vertex_id,
-    VertexId second_vertex_id) const {
+const EdgeColor Graph::get_edge_color(VertexId first_vertex_id,
+                                      VertexId second_vertex_id) const {
   const auto first_vertex_depth = get_vertex_depth(first_vertex_id);
   const auto second_vertex_depth = get_vertex_depth(second_vertex_id);
 

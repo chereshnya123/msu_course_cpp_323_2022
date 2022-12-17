@@ -153,9 +153,7 @@ std::vector<Graph> generate_graphs(GraphGenerator::Params&& params,
   graphs.reserve(graphs_count);
 
   generation_controller.generate(
-      [&logger](int index) {
-        logger.log(generation_started_string(index));
-      },
+      [&logger](int index) { logger.log(generation_started_string(index)); },
       [&logger, &graphs](int index, Graph&& graph) {
         graphs.push_back(graph);
         const auto graph_description = printing::print_graph(graph);
@@ -169,18 +167,18 @@ std::vector<Graph> generate_graphs(GraphGenerator::Params&& params,
 
 }  // namespace uni_course_cpp
 
-
-
 int main() {
   const int depth = uni_course_cpp::handle_depth_input();
-  const int new_vertices_count = uni_course_cpp::handle_new_vertices_count_input();
+  const int new_vertices_count =
+      uni_course_cpp::handle_new_vertices_count_input();
   const int graphs_count = uni_course_cpp::handle_graphs_count_input();
   const int threads_count = uni_course_cpp::handle_threads_count_input();
   uni_course_cpp::prepare_temp_directory();
 
-  auto params = uni_course_cpp::GraphGenerator::Params(depth, new_vertices_count);
-  const auto graphs =
-      uni_course_cpp::generate_graphs(std::move(params), graphs_count, threads_count);
+  auto params =
+      uni_course_cpp::GraphGenerator::Params(depth, new_vertices_count);
+  const auto graphs = uni_course_cpp::generate_graphs(
+      std::move(params), graphs_count, threads_count);
 
   return 0;
 }

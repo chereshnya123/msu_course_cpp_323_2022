@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include "interfaces/i_graph.hpp"
 #include "graph.hpp"
+#include "interfaces/i_graph.hpp"
 
 namespace uni_course_cpp {
 namespace printing {

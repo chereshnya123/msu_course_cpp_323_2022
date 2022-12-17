@@ -1,12 +1,12 @@
+#include <algorithm>
+#include <cassert>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <unordered_map>
-#include <memory>
-#include <cassert>
-#include <algorithm>
+#include "graph.cpp"
 #include "graph.hpp"
 #include "graph_printing.hpp"
-#include "graph.cpp"
 
 namespace uni_course_cpp {
 namespace printing {

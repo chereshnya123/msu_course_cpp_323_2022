@@ -4,16 +4,14 @@
 #include <string>
 #include <unordered_map>
 #include <utility>
-#include "interfaces/i_graph.hpp"
 #include "graph.cpp"
+#include "interfaces/i_graph.hpp"
 
 namespace {
 static constexpr int kColorsAmount = 4;
-constexpr std::array<uni_course_cpp::EdgeColor, kColorsAmount>
-    kColors = {uni_course_cpp::EdgeColor::Grey,
-               uni_course_cpp::EdgeColor::Green,
-               uni_course_cpp::EdgeColor::Yellow,
-               uni_course_cpp::EdgeColor::Red};
+constexpr std::array<uni_course_cpp::EdgeColor, kColorsAmount> kColors = {
+    uni_course_cpp::EdgeColor::Grey, uni_course_cpp::EdgeColor::Green,
+    uni_course_cpp::EdgeColor::Yellow, uni_course_cpp::EdgeColor::Red};
 }  // namespace
 
 namespace uni_course_cpp {

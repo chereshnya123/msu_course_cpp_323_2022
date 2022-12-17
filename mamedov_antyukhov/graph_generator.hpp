@@ -1,11 +1,11 @@
 #pragma once
 
-#include <mutex>
-#include "graph.hpp"
 #include <functional>
 #include <list>
+#include <mutex>
 #include <optional>
 #include <thread>
+#include "graph.hpp"
 #include "interfaces/i_worker.hpp"
 
 namespace uni_course_cpp {
@@ -79,9 +79,6 @@ class GraphGenerationController {
   int threads_count_;
   int graphs_count_;
   GraphGenerator graph_generator_;
-
 };
 
 };  // namespace uni_course_cpp
-
-
